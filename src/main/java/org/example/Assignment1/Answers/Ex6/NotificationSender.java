@@ -5,13 +5,6 @@ public class NotificationSender {
     private final NotificationChannel channel;
     private final AuditLog audit;
 
-    /**
-     * CONTRACT:
-     * - Notification must not be null
-     * - Channel may validate required fields
-     * - Throws IllegalArgumentException for invalid input
-     * - Logs success after sending
-     */
     public NotificationSender(NotificationChannel channel, AuditLog audit) {
         this.channel = channel;
         this.audit = audit;

@@ -43,7 +43,7 @@ public class EligibilityEngine {
             if (failure.isPresent()) {
                 status = "NOT_ELIGIBLE";
                 reasons.add(failure.get());
-                break; // preserve original else-if behavior
+                break;
             }
         }
 

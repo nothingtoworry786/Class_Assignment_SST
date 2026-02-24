@@ -13,7 +13,7 @@ public class Main {
                         "Welcome",
                         "Hello and welcome to SST!",
                         "riya@sst.edu",
-                        "9876543210"
+                        "+1 9876543210"
                 );
 
         NotificationSender email =

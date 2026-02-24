@@ -7,15 +7,6 @@ public class Exporter {
     public Exporter(FormatEncoder encoder) {
         this.encoder = encoder;
     }
-
-    /**
-     * CONTRACT:
-     * - req must not be null
-     * - title must not be null
-     * - body must not be null
-     * - Throws IllegalArgumentException for invalid input
-     * - Returns ExportResult on success
-     */
     public ExportResult export(ExportRequest req) {
 
         if (req == null) {
