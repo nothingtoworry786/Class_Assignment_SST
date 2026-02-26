@@ -1,7 +1,5 @@
 package org.example.Assignment1.Answers.Ex1;
 
-import org.example.Assignment1.Answers.Ex1.StudentRecord;
-
 public class TextTable {
 
     public static String render3(FakeDb db) {

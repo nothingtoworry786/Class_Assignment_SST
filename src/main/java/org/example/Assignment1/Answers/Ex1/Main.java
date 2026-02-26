@@ -1,9 +1,5 @@
 package org.example.Assignment1.Answers.Ex1;
 
-import org.example.Assignment1.Answers.Ex1.FakeDb;
-import org.example.Assignment1.Answers.Ex1.OnboardingService;
-import org.example.Assignment1.Answers.Ex1.TextTable;
-
 public class Main {
     public static void main(String[] args) {
 
