@@ -1,35 +1,37 @@
-Flyweight — Deduplicate Map Marker Styles (Refactoring)
-------------------------------------------------------
-Narrative (Current Code)
-A CLI tool called **GeoDash** renders a large list of map markers (pins).
-Right now, every `MapMarker` stores its own style fields (shape, color, size, filled).
-When rendering thousands of markers, we end up creating thousands of duplicate style objects → memory blow-up.
 
-Your Task
-1) Extract an immutable `MarkerStyle` (shape, color, size, filled) as **intrinsic state**.
-2) Implement `MarkerStyleFactory` that caches and returns shared `MarkerStyle` instances by key.
-3) Modify `MapMarker` to hold:
-   - `MarkerStyle` (intrinsic)
-   - marker-specific fields (extrinsic): `lat`, `lng`, `label`
-4) Update `MapDataSource` (marker creation pipeline) to obtain styles via the factory
-   (no `new MarkerStyle(...)` during marker creation).
+## Answer overview (structure before vs after)
 
-Acceptance Criteria
-- Same rendering “cost” as before (same number of markers rendered, same output format).
-- Identical style configurations reuse the same `MarkerStyle` instance
-  (see `QuickCheck` — it should report a small number of unique styles).
-- `MarkerStyle` is immutable (all fields final, no setters).
-- `MapMarker` stores only extrinsic state plus a reference to shared `MarkerStyle`.
+**Problem in the original design**
 
-Hints
-- Use a `Map<String, MarkerStyle>` cache in the factory.
-- Key suggestion: `"PIN|RED|12|F"` (shape|color|size|filledFlag)
+- Each `MapMarker` creates its own `MarkerStyle` via `new MarkerStyle(...)`.
+- Thousands of markers with identical style configurations allocate thousands of duplicate style objects.
+- `MarkerStyle` is mutable, so sharing would be unsafe even if attempted.
 
-Build & Run
-  cd flyweight-markers/src
-  javac com/example/map/*.java
-  java com.example.map.App
+**How the answer fixes it**
 
-Repo intent
-This is a **refactoring assignment**: the starter code is intentionally wasteful.
-Students should refactor to Flyweight without changing the external behavior.
+- Make `MarkerStyle` an **immutable flyweight** (all fields `final`, no setters).
+- Introduce `MarkerStyleFactory` that caches styles by key (`shape|color|size|filledFlag`).
+- Change `MapMarker` to hold shared `MarkerStyle` plus only its extrinsic state (`lat`, `lng`, `label`).
+- Update `MapDataSource` so it calls `MarkerStyleFactory.get(...)` and passes the style into the `MapMarker` constructor (no `new MarkerStyle(...)` per marker).
+
+### Before – conceptual structure
+
+```mermaid
+flowchart LR
+    App --> MapDataSource
+    MapDataSource --> MapMarker
+    MapMarker --> MarkerStyle
+```
+
+### After – Flyweight-based structure
+
+```mermaid
+flowchart LR
+    App --> MapDataSource
+
+    MapDataSource --> MarkerStyleFactory
+    MarkerStyleFactory --> MarkerStyle
+
+    MapDataSource --> MapMarker
+    MapMarker --> MarkerStyle
+```

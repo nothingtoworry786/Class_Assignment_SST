@@ -1,29 +1,40 @@
-# Adapter — Payments (Refactoring)
+## Answer overview (structure before vs after)
 
-## Narrative (Current Code)
-OrderService directly depends on two mismatched SDKs (`FastPayClient`, `SafeCashClient`), uses a string `provider` switch, and duplicates glue logic.
+**Problem in the original design**
 
-## Your Task
-Introduce an **Adapter** so `OrderService` depends only on a `PaymentGateway` interface. Create:
-- `PaymentGateway` (target interface): `String charge(String customerId, int amountCents)`
-- `FastPayAdapter` and `SafeCashAdapter` mapping to their respective SDKs
-- A simple map-based registry in `App` to select the gateway
+- `OrderService` was intended to talk directly to SDKs (`FastPayClient`, `SafeCashClient`) with provider-specific glue logic and branching.
+- This couples business logic to concrete SDKs and makes adding a new provider require changes inside `OrderService`.
 
-Refactor `OrderService` to accept a `PaymentGateway` and remove provider branching.
+**How the answer fixes it**
 
-## Acceptance Criteria
-- `OrderService` calls **only** `PaymentGateway`
-- Adding a new provider requires no change to `OrderService`
-- Running `App` prints transaction IDs for both providers
+- Define a stable target interface `PaymentGateway` with `charge(String customerId, int amountCents)`.
+- Implement **adapters** `FastPayAdapter` and `SafeCashAdapter` that wrap the SDKs and translate to/from this interface.
+- `OrderService` depends only on `PaymentGateway` and a `Map<String, PaymentGateway>` registry.
+- `App` wires the map with adapters; adding a new provider is just adding another entry.
 
-## Hints
-- Use constructor injection or a `Map<String, PaymentGateway>`
-- Keep adapters stateless
-- Use `Objects.requireNonNull` to validate inputs
+### Before – conceptual structure
 
-## Build & Run
-```bash
-cd adapter-payments/src
-javac com/example/payments/*.java
-java com.example.payments.App
+```mermaid
+flowchart LR
+    App --> OrderService
+    OrderService --> FastPayClient
+    OrderService --> SafeCashClient
+    SafeCashClient --> SafeCashPayment
+```
+
+### After – Adapter-based structure
+
+```mermaid
+flowchart LR
+    App --> OrderService
+    App --> GatewayMap[(Map<String, PaymentGateway>)]
+
+    OrderService --> GatewayMap
+
+    GatewayMap --> FastPayAdapter
+    GatewayMap --> SafeCashAdapter
+
+    FastPayAdapter --> FastPayClient
+    SafeCashAdapter --> SafeCashClient
+    SafeCashClient --> SafeCashPayment
 ```

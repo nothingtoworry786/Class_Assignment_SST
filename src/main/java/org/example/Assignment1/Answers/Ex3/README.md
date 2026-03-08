@@ -14,14 +14,13 @@
 
 ```mermaid
 flowchart TD
-    EligibilityEngine --> Evaluate[evaluate()]
-    Evaluate --> BigIf[one long if / else-if chain]
-    BigIf --> Result
+    EligibilityEngine[EligibilityEngine] --> BigIf[Long if / else-if chain]
+    BigIf --> Result[Result]
 ```
 
 ```mermaid
 flowchart TD
-    EligibilityEngine --> Rules[List of EligibilityRule]
+    EligibilityEngine[EligibilityEngine] --> Rules[EligibilityRule list]
     Rules --> DisciplinaryRule
     Rules --> CgrRule
     Rules --> AttendanceRule
