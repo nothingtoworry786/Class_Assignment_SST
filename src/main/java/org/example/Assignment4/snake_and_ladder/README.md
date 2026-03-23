@@ -3,43 +3,43 @@
 ```mermaid
 classDiagram
 
-classDef core fill:#F3E5F5,stroke:#6A1B9A,color:#4A148C;
-classDef interface fill:#FFF3E0,stroke:#E65100,color:#BF360C;
-classDef impl fill:#E3F2FD,stroke:#1565C0,color:#0D47A1;
-classDef enum fill:#E8F5E9,stroke:#2E7D32,color:#1B5E20;
-classDef rule fill:#E1F5FE,stroke:#0288D1,color:#01579B;
+classDef core fill:#F3E5F5,stroke:#6A1B9A,color:#4A148C
+classDef interface fill:#FFF3E0,stroke:#E65100,color:#BF360C
+classDef impl fill:#E3F2FD,stroke:#1565C0,color:#0D47A1
+classDef enum fill:#E8F5E9,stroke:#2E7D32,color:#1B5E20
+classDef rule fill:#E1F5FE,stroke:#0288D1,color:#01579B
 
-class Main core;
-class SessionBuilder core;
-class GameSession core;
-class SessionContext core;
-class EventProcessor core;
-class GameBoard core;
-class Tile core;
+class Main core
+class SessionBuilder core
+class GameSession core
+class SessionContext core
+class EventProcessor core
+class GameBoard core
+class Tile core
 
-class Contestant interface;
-class ContestantImpl impl;
+class Contestant interface
+class ContestantImpl impl
 
-class Die interface;
-class StandardDie impl;
+class Die interface
+class StandardDie impl
 
-class TileAction interface;
-class SlideDown impl;
-class ClimbUp impl;
+class TileAction interface
+class SlideDown impl
+class ClimbUp impl
 
-class GameRule interface;
-class TileActionRule rule;
-class LenientMoveRule rule;
-class PreciseMoveRule rule;
-class UnboundedBonusRule rule;
-class CappedBonusRule rule;
+class GameRule interface
+class TileActionRule rule
+class LenientMoveRule rule
+class PreciseMoveRule rule
+class UnboundedBonusRule rule
+class CappedBonusRule rule
 
-class RuleSetAssembler core;
-class BoardPopulator core;
-class TurnEvent core;
+class RuleSetAssembler core
+class BoardPopulator core
+class TurnEvent core
 
-classDef enumBox fill:#E8F5E9,stroke:#2E7D32,color:#1B5E20;
-class TurnPhase enumBox;
+classDef enumBox fill:#E8F5E9,stroke:#2E7D32,color:#1B5E20
+class TurnPhase enumBox
 
 class Main {
   +main(args)

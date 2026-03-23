@@ -3,19 +3,19 @@
 ```mermaid
 classDiagram
 
-classDef core fill:#F3E5F5,stroke:#6A1B9A,color:#4A148C;
-classDef enum fill:#E8F5E9,stroke:#2E7D32,color:#1B5E20;
+classDef core fill:#F3E5F5,stroke:#6A1B9A,color:#4A148C
+classDef enum fill:#E8F5E9,stroke:#2E7D32,color:#1B5E20
 
-class ParkingSimulation core;
-class CarPark core;
-class CarParkAssembler core;
-class Vehicle core;
-class ParkReceipt core;
-class CarParkConfig core;
-class SpotSpec core;
+class ParkingSimulation core
+class CarPark core
+class CarParkAssembler core
+class Vehicle core
+class ParkReceipt core
+class CarParkConfig core
+class SpotSpec core
 
-class SpotCategory enum;
-class VehicleType enum;
+class SpotCategory enum
+class VehicleType enum
 
 class ParkingSimulation {
   +main(args: String[]): void
