@@ -7,21 +7,6 @@ classDef interface fill:#FFF3E0,stroke:#E65100,color:#BF360C
 classDef impl fill:#E3F2FD,stroke:#1565C0,color:#0D47A1
 classDef core fill:#F3E5F5,stroke:#6A1B9A,color:#4A148C
 
-class App core
-class Marker core
-class MarkerFactory core
-
-class Drawable interface
-class Tip interface
-class Reload interface
-
-class BrushDrawable impl
-class FeltDrawable impl
-class PermanentDrawable impl
-class SnapTip impl
-class TwistTip impl
-class TubeReload impl
-class ReservoirReload impl
 
 class App {
   +main(args: String[]): void
