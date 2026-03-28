@@ -40,7 +40,7 @@ public class Main {
                 notificationService
         );
 
-        Show show = showStore.getAll().getFirst();
+        Show show = showStore.getAll().get(0);
         List<String> seatsToBook = show.getShowSeats().stream().limit(2).map(s -> s.getId()).toList();
 
         Booking booking = bookingService.createBooking(userId, show.getId(), seatsToBook);
